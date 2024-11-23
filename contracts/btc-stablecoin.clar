@@ -75,3 +75,10 @@
         ERR-PRICE-EXPIRED
     )
 )
+
+(define-private (check-min-collateral (amount uint))
+    (if (>= amount MIN-DEPOSIT)
+        (ok true)
+        ERR-BELOW-MINIMUM
+    )
+)
