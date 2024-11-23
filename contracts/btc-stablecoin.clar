@@ -46,3 +46,8 @@
         debt-repaid: uint
     }
 )
+
+;; Read-only functions
+(define-read-only (get-position (user principal))
+    (map-get? user-positions user)
+)
