@@ -11,3 +11,12 @@
 (define-constant ERR-ALREADY-LIQUIDATED (err u1005))
 (define-constant ERR-HEALTHY-POSITION (err u1006))
 (define-constant ERR-PRICE-EXPIRED (err u1007))
+
+;; Define minimum collateralization ratio (150%)
+(define-constant MIN-COLLATERAL-RATIO u150)
+;; Liquidation threshold (120%)
+(define-constant LIQUIDATION-RATIO u120)
+;; Minimum deposit amount (satoshis)
+(define-constant MIN-DEPOSIT u1000000)
+;; Price validity period (144 blocks ~ 1 day)
+(define-constant PRICE-VALIDITY-PERIOD u144)
