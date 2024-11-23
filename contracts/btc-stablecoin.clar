@@ -51,3 +51,15 @@
 (define-read-only (get-position (user principal))
     (map-get? user-positions user)
 )
+
+(define-read-only (get-collateral-ratio (user principal))
+    (let (
+        (position (unwrap! (get-position user) (err u0)))
+        (collateral-value (* (get collateral position) (var-get btc-price)))
+        (debt-value (* (get debt position) u100000000))
+    )
+        (if (is-eq (get debt position) u0)
+            (ok u0)
+            (ok (/ (* collateral-value u100) debt-value)))
+    )
+)
