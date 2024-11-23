@@ -20,3 +20,10 @@
 (define-constant MIN-DEPOSIT u1000000)
 ;; Price validity period (144 blocks ~ 1 day)
 (define-constant PRICE-VALIDITY-PERIOD u144)
+
+;; Data Variables
+(define-data-var contract-owner principal tx-sender)
+(define-data-var price-oracle principal tx-sender)
+(define-data-var total-supply uint u0)
+(define-data-var btc-price uint u0)
+(define-data-var last-price-update uint block-height)
