@@ -82,3 +82,13 @@
         ERR-BELOW-MINIMUM
     )
 )
+
+(define-private (check-position-health (user principal))
+    (let (
+        (ratio (unwrap! (get-collateral-ratio user) (err u0)))
+    )
+        (if (< ratio MIN-COLLATERAL-RATIO)
+            ERR-INSUFFICIENT-COLLATERAL
+            (ok true))
+    )
+)
