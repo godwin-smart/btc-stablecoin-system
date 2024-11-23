@@ -92,3 +92,24 @@
             (ok true))
     )
 )
+
+;; Public functions
+(define-public (deposit-collateral (amount uint))
+    (begin
+        (try! (check-min-collateral amount))
+        (let (
+            (current-position (default-to 
+                { collateral: u0, debt: u0, last-update: block-height }
+                (get-position tx-sender)
+            ))
+        )
+            (map-set user-positions tx-sender
+                {
+                    collateral: (+ amount (get collateral current-position)),
+                    debt: (get debt current-position),
+                    last-update: block-height
+                }
+            )
+            (ok true))
+    )
+)
