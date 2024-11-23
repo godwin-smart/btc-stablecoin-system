@@ -172,3 +172,36 @@
         (ok true)
     )
 )
+
+(define-public (liquidate-position (user principal))
+    (begin
+        (try! (check-price-freshness))
+        (let (
+            (position (unwrap! (get-position user) ERR-POSITION-NOT-FOUND))
+            (ratio (unwrap! (get-collateral-ratio user) ERR-POSITION-NOT-FOUND))
+        )
+            (asserts! (< ratio LIQUIDATION-RATIO) ERR-HEALTHY-POSITION)
+            
+            ;; Record liquidation
+            (map-set liquidation-history user
+                {
+                    timestamp: block-height,
+                    collateral-liquidated: (get collateral position),
+                    debt-repaid: (get debt position)
+                }
+            )
+            
+            ;; Clear position
+            (map-set user-positions user
+                {
+                    collateral: u0,
+                    debt: u0,
+                    last-update: block-height
+                }
+            )
+            
+            ;; Update total supply
+            (var-set total-supply (- (var-get total-supply) (get debt position)))
+            (ok true))
+    )
+)
