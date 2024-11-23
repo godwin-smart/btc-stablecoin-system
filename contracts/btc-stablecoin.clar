@@ -214,3 +214,10 @@
         (var-set last-price-update block-height)
         (ok true))
 )
+
+(define-public (set-price-oracle (new-oracle principal))
+    (begin
+        (asserts! (is-eq tx-sender (var-get contract-owner)) ERR-NOT-AUTHORIZED)
+        (var-set price-oracle new-oracle)
+        (ok true))
+)
