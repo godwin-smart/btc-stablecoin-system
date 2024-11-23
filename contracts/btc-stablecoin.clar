@@ -67,3 +67,11 @@
 (define-read-only (get-current-price)
     (ok (var-get btc-price))
 )
+
+;; Private functions
+(define-private (check-price-freshness)
+    (if (< (- block-height (var-get last-price-update)) PRICE-VALIDITY-PERIOD)
+        (ok true)
+        ERR-PRICE-EXPIRED
+    )
+)
