@@ -63,3 +63,7 @@
             (ok (/ (* collateral-value u100) debt-value)))
     )
 )
+
+(define-read-only (get-current-price)
+    (ok (var-get btc-price))
+)
